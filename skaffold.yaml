@@ -6,17 +6,11 @@ build:
   artifacts:
   - image: rne1223/blog-backend
     context: ./src
+    sync: # Sync files to not disrupt the 
+      infer:
+        - "**/*.py"
     docker:
       dockerfile: Dockerfile
-  #   buildpack:
-  #     builder: "paketobuildpacks/builder:base"
-  #     buildpacks: 
-  #     - "paketo-buildpacks/nodejs"
-  #     dependencies: # Folders that will trigger a build
-  #       paths:
-  #       - src/** 
-  #     env:
-  #     - GO_GIT_CRED__HTTPS__GITHUB__COM=<a cli token>
 deploy:
   helm:
    releases:
