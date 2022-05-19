@@ -6,7 +6,7 @@ build:
   artifacts:
   - image: rne1223/blog-backend
     context: ./src
-    sync: # Sync files to not disrupt the 
+    sync:
       infer:
         - "**/*.py"
     docker:

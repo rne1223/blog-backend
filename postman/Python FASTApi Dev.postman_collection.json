@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "1657d68b-502d-426d-86fc-3eef250ed65e",
+		"name": "Python FASTApi Dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:30001",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "30001"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/ recipe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:30001/recipe",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "30001",
+					"path": [
+						"recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/ recipe/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:30001/recipe/3m  ",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "30001",
+					"path": [
+						"recipe",
+						"3m  "
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/ search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:30001/search",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "30001",
+					"path": [
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/ search/?keyword",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:30001/search/?keyword=cauliflower",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "30001",
+					"path": [
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "cauliflower"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/ search/?keyword&max_results Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:30001/search/?keyword=chicken&max_results=4",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "30001",
+					"path": [
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "chicken"
+						},
+						{
+							"key": "max_results",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/recipe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " { \r\n    \"label\": \"Steak and potatoes\",\r\n    \"source\": \"Cool recipes\",\r\n    \"url\": \"http://coolrecipes.com/recipe/steaks-and-potatoes\",\r\n    \"submitter_id\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:30001/recipe/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "30001",
+					"path": [
+						"recipe",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
