@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, Response, status
 
 from schemas import Recipe, RecipeCreate, RecipeSearchResults
 from recipe_data import RECIPES
@@ -66,20 +66,36 @@ def create_recipe(*, recipe_in: RecipeCreate) -> Recipe:
 
     return recipe_entry 
 
-@api_router.delete("/recipe/{recipe_id}", status_code=200)
-def remove_recipe(*, recipe_id: int) -> dict:
+@api_router.delete("/recipe/{recipe_id}", status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
+def remove_recipe(*, recipe_id: int) -> None:
 
     """"
     Deleting a recipe from RECIPE
     """
-    result = fetch_recipe(recipe_id=recipe_id)
+    recipe_idx = fetch_recipe(recipe_id=recipe_id)
 
-    if result:
-        RECIPES.remove(result)
-        return {"detail" : f"REMOVED recipe with ID {recipe_id}"}
+    if recipe_idx:
+        RECIPES.remove(recipe_idx)
+        return None
 
+@api_router.put("/recipe/{recipe_id}", status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
+def update_recipe(*, recipe_id: int, recipe_in: RecipeCreate) -> dict:
+    """"
+    Updating a recipe from RECIPE
+    """
 
-    
+    recipe = fetch_recipe(recipe_id=recipe_id)
+
+    if recipe:
+        recipe_entry = Recipe (
+            id      = recipe.id,
+            label   = recipe_in.label,
+            url     = recipe_in.url,
+            source  = recipe_in.source
+        )
+        RECIPES[recipe.id] = recipe_entry 
+        return recipe_entry 
+
 
 app.include_router(api_router)
 
