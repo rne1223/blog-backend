@@ -87,14 +87,15 @@ def update_recipe(*, recipe_id: int, recipe_in: RecipeCreate) -> dict:
     recipe = fetch_recipe(recipe_id=recipe_id)
 
     if recipe:
-        recipe_entry = Recipe (
-            id      = recipe.id,
+        update_recipe = Recipe (
+            id      = recipe_id,
             label   = recipe_in.label,
             url     = recipe_in.url,
             source  = recipe_in.source
         )
-        RECIPES[recipe.id] = recipe_entry 
-        return recipe_entry 
+        recipe.update(update_recipe.dict())
+    
+    return None
 
 
 app.include_router(api_router)
