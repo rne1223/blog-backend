@@ -1,4 +1,17 @@
 {{/*
+Expand Configmap enviroment variables 
+*/}}
+{{- define "helpers.list-env-variables"}}
+{{- range $key, $val := .Values.env.db_conn}}
+- name: {{ $key }}
+  valueFrom:
+    configMapKeyRef:
+      name: db-env 
+      key: {{ $key }}
+{{- end}}
+{{- end }}
+
+{{/*
 Expand the name of the chart.
 */}}
 {{- define "backend.name" -}}

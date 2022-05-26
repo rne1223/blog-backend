@@ -8,11 +8,11 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
+      name: http
       targetPort: http
       protocol: TCP
-      name: http
-      {{ if eq .Values.service.type "NodePort" }}
+      {{- if eq .Values.service.type "NodePort" }}
       nodePort: {{ .Values.service.nodePort }}
-      {{ end }}
+      {{- end }}
   selector:
     {{- include "backend.selectorLabels" . | nindent 4 }}

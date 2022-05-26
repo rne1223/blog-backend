@@ -4,7 +4,6 @@ from fastapi import FastAPI, APIRouter, HTTPException, Response, status
 from schemas import Recipe, RecipeCreate, RecipeSearchResults
 from recipe_data import RECIPES
 
-
 app = FastAPI()
 api_router = APIRouter()
 
