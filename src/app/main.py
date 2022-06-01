@@ -4,8 +4,10 @@ from fastapi.templating import Jinja2Templates
 from typing import Optional, Any
 from pathlib import Path
 from sqlalchemy.orm import Session
+from app.recipe_data import BLOGS
 
 from app.schemas.recipe import RecipeSearchResults, Recipe, RecipeCreate
+from app.schemas.blog import BlogSearchResults, Blog, BlogCreate
 from app import deps
 from app import crud
 
@@ -88,6 +90,26 @@ def create_recipe(
 
     return recipe
 
+ ## Blog endpoints
+@api_router.get("/blog/{blog_id}", status_code=200, response_model=Blog)
+def fetch_blog(
+    *,
+    blog_id: int,
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    """
+    Fetch a single recipe by ID
+    """
+
+    result = crud.blog.get(db=db, id=blog_id)
+    if not result:
+        # the exception is raised, not returned - you will get a validation
+        # error otherwise.
+        raise HTTPException(
+            status_code=404, detail=f"Recipe with ID {blog_id} not found"
+        )
+
+    return result
 
 app.include_router(api_router)
 

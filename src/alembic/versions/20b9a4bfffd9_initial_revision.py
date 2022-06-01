@@ -1,8 +1,8 @@
-"""add recipe and user tables
+"""Initial revision
 
-Revision ID: da9301b43279
+Revision ID: 20b9a4bfffd9
 Revises: 
-Create Date: 2021-08-08 13:38:59.871519
+Create Date: 2022-06-01 12:51:57.288148
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'da9301b43279'
+revision = '20b9a4bfffd9'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,6 +28,16 @@ def upgrade():
     )
     op.create_index(op.f('ix_user_email'), 'user', ['email'], unique=False)
     op.create_index(op.f('ix_user_id'), 'user', ['id'], unique=False)
+    op.create_table('blog',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('title', sa.String(length=256), nullable=False),
+    sa.Column('body', sa.Text(), nullable=False),
+    sa.Column('submitter_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['submitter_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_blog_body'), 'blog', ['body'], unique=False)
+    op.create_index(op.f('ix_blog_id'), 'blog', ['id'], unique=False)
     op.create_table('recipe',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('label', sa.String(length=256), nullable=False),
@@ -47,6 +57,9 @@ def downgrade():
     op.drop_index(op.f('ix_recipe_url'), table_name='recipe')
     op.drop_index(op.f('ix_recipe_id'), table_name='recipe')
     op.drop_table('recipe')
+    op.drop_index(op.f('ix_blog_id'), table_name='blog')
+    op.drop_index(op.f('ix_blog_body'), table_name='blog')
+    op.drop_table('blog')
     op.drop_index(op.f('ix_user_id'), table_name='user')
     op.drop_index(op.f('ix_user_email'), table_name='user')
     op.drop_table('user')
